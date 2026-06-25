@@ -2,7 +2,7 @@
 
 #define N 30   /* number of samples to compute */
 
-/* coefficients for fd1 = 1 kHz, fs = 10 kHz (your design) */
+/* using 1 kHz cutoff frequency at 3dB, and sampling rate of 10 kHz */
 static const double b0 = 0.067455;
 static const double b1 = 0.134910;
 static const double b2 = 0.067455;
@@ -10,7 +10,6 @@ static const double a1 = 1.142981;
 static const double a2 = -0.412795; 
 
 int main(void) {
-   // int n;
     int x[N];  /* input signal */
     double x1 = -1.0, x2 = -1.0;   /* x[-1], x[-2] */
     double y1 = -1.0, y2 = -1.0;   /* y[-1], y[-2] */
