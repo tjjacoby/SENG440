@@ -13,20 +13,40 @@ int main() {
    // double x1 = -1.0, x2 = -1.0;   /* x[-1], x[-2] */
    // double y1 = -1.0, y2 = -1.0;   /* y[-1], y[-2] */
 
-    int x1_fixed = (-1 << 14), x2_fixed = (-1 << 14);   /* x[-1], x[-2] in fixed-point representation */
-    int y1_fixed = (-1 << 14), y2_fixed = (-1 << 14);   /* y[-1], y[-2] in fixed-point representation */
+    int x1_fixed = -(1 << 14), x2_fixed = -(1 << 14);   /* x[-1], x[-2] in fixed-point representation */
+    int y1_fixed = -(1 << 14), y2_fixed = -(1 << 14);   /* y[-1], y[-2] in fixed-point representation */
 
     for (int n = 0; n < N; n++) {
         x[n] = (1 << 14);  /* step input, +1 for all n >= 0 */
     }
- for (int n = 0; n < 30; n++) {
-        //double x = 1.0;                       /* step input, +1 for all n >= 0 */
-        //double y = b0*x[n] + b1*x1 + b2*x2 + a1*y1 + a2*y2;
 
+    #if 0
+    // Sqaure wave high for 2 steps low for 2 steps 
+    for (int n = 0; n < N; n++) {
+        if ((n / 2) % 2 == 0) {
+            x[n] = (1 << 14);  /* high for 2 steps */
+        } else {
+            x[n] = 0; /* low for 2 steps */
+        }
+    }
+    #endif
+    #if 0
+    // Impulse input (n = 1)
+    for (int n = 0; n < N; n++) {
+        if (n == 1) {
+            x[n] = (1 << 14);  /* impulse at n=1 */
+        } else {
+            x[n] = 0; /* zero for all other n */
+        }
+    }
+    #endif
+
+
+    for (int n = 0; n < 30; n++) {
+      
         int y_fixed = (
             b0 * x[n] + b1 * x1_fixed + b2 * x2_fixed + a1 * y1_fixed + a2 * y2_fixed
         ) >> 14;
-
 
         //printf("y[%2d] = %+9.5f\n", n, y);
        // printf("y_fixed[%2d] = %d\n", n, y_fixed);
