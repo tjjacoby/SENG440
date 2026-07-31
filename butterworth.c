@@ -11,12 +11,22 @@ static const double a2 = -0.412795;
 
 int main(void) {
     int x[N];  /* input signal */
-    double x1 = -1.0, x2 = -1.0;   /* x[-1], x[-2] */
-    double y1 = -1.0, y2 = -1.0;   /* y[-1], y[-2] */
+    double x1 = 0, x2 = 0;   /* x[-1], x[-2] */
+    double y1 = 0, y2 = 0;   /* y[-1], y[-2] */
 
+    // for (int n = 0; n < N; n++) {
+    //     x[n] = 1;  /* step input, +1 for all n >= 0 */
+    // }
+
+    //impulse input 
     for (int n = 0; n < N; n++) {
-        x[n] = 1;  /* step input, +1 for all n >= 0 */
+        if (n == 0) {
+            x[n] = 1;  /* impulse input, +1 for n = 0 */
+        } else {
+            x[n] = 0;  /* impulse input, 0 for n > 0 */
+        }
     }
+
 
     for (int n = 0; n < 30; n++) {
         //double x = 1.0;                       /* step input, +1 for all n >= 0 */
