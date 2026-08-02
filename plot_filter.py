@@ -31,6 +31,11 @@ def parse_args():
         help=f"output image (default: {DEFAULT_GRAPH.name})",
     )
     parser.add_argument(
+        "--duration-ms",
+        type=float,
+        help="only plot the first specified number of milliseconds (default: all)",
+    )
+    parser.add_argument(
         "--no-show",
         action="store_true",
         help="save the graph without opening a plot window",
@@ -96,6 +101,9 @@ def print_attenuation_table(frequencies, input_amplitude, output_amplitude):
 
 def main():
     args = parse_args()
+    if args.duration_ms is not None and args.duration_ms <= 0:
+        raise ValueError("duration must be positive")
+
     csv_file = args.csv_file.resolve()
     output_file = args.output.resolve()
     data, sample_rate = load_filter_data(csv_file)
@@ -118,9 +126,14 @@ def main():
         2, 1, figsize=(12, 8), constrained_layout=True
     )
 
-    # Two cycles of the lowest (100 Hz) test tone keep this plot readable.
-    time_limit = min(0.020, float(data["time"].iloc[-1]))
-    time_view = data[data["time"] <= time_limit]
+    if args.duration_ms is None:
+        time_view = data
+        time_title = "all samples"
+    else:
+        time_limit = args.duration_ms / 1000.0
+        time_view = data[data["time"] <= time_limit]
+        time_title = f"first {args.duration_ms:g} ms"
+
     time_axis.plot(time_view["time"] * 1000.0, time_view["input"], label="Input")
     time_axis.plot(
         time_view["time"] * 1000.0,
@@ -131,7 +144,7 @@ def main():
     time_axis.set(
         xlabel="Time (ms)",
         ylabel="Amplitude",
-        title="IIR filter input and output (first 20 ms)",
+        title=f"IIR filter input and output ({time_title})",
     )
     time_axis.grid(True, alpha=0.3)
     time_axis.legend()

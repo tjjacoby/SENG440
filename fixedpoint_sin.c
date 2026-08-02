@@ -4,6 +4,16 @@
 #define N 2000
 #define SAMPLE_RATE 10000.0
 #define PI 3.14159265358979323846
+#define INPUT_AMPLITUDE 0.80
+
+/* Set this to 100 or 1000. It can also be overridden with gcc -D. */
+#ifndef INPUT_FREQUENCY_HZ
+#define INPUT_FREQUENCY_HZ 100
+#endif
+
+#if INPUT_FREQUENCY_HZ != 100 && INPUT_FREQUENCY_HZ != 1000
+#error "INPUT_FREQUENCY_HZ must be 100 or 1000"
+#endif
 
 static const int b0 = 1105;
 static const int b1 = 2210;
@@ -20,21 +30,13 @@ int main()
     int y1_fixed = 0;
     int y2_fixed = 0;
 
-    /*
-     * Input containing:
-     * 100 Hz, 500 Hz, 1000 Hz, 2000 Hz and 4000 Hz.
-     *
-     * The amplitudes add to less than 1.0 to avoid input overflow.
-     */
+    /* Generate a single test tone selected by INPUT_FREQUENCY_HZ. */
     for (int n = 0; n < N; n++) {
         double time = (double)n / SAMPLE_RATE;
 
-        double input =
-            0.20 * sin(2.0 * PI * 100.0  * time) +
-            0.20 * sin(2.0 * PI * 500.0  * time) +
-            0.15 * sin(2.0 * PI * 1000.0 * time) +
-            0.10 * sin(2.0 * PI * 2000.0 * time) +
-            0.10 * sin(2.0 * PI * 4000.0 * time);
+        double input = INPUT_AMPLITUDE * sin(
+            2.0 * PI * (double)INPUT_FREQUENCY_HZ * time
+        );
 
         x[n] = (int)(input * (1 << 14));
     }
