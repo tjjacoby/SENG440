@@ -48,12 +48,12 @@ ssh "$VM_HOST" "
     mkdir -p '$VM_DIR' &&
     tar -xf - -C '$VM_DIR' &&
     cd '$VM_DIR' &&
-    gcc -Wall -Wextra -mcpu=cortex-a7 \
+    gcc -Wall -Wextra -O1 -mcpu=cortex-a7 \
         -I'$VM_DIR' \
         '$FILE_NAME' \
         -o '$PROGRAM_NAME' \
         -lm -lrt &&
-    gcc -Wall -Wextra -mcpu=cortex-a7 \
+    gcc -Wall -Wextra -O1 -mcpu=cortex-a7 \
         -I'$VM_DIR' \
         -S -fverbose-asm \
         '$FILE_NAME' \
