@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <time.h>
 #include <math.h>
-#include <cmsis_compiler.h>
 
 #define N 200000
 #define SAMPLE_RATE 10000.0
@@ -41,14 +40,11 @@ static inline int run_IIR(const int *x, int sample_count)
     for (i = 0; i + 1 < sample_count; i += 2) {
         // x[i]
         register int current_input = x[i];
-        register int y = __QADD(
-            b02_1 * current_input,
-            (b02_1 << 1) * x1
-        );
+        register int y = ((b02_1 * current_input) + ((b02_1 << 1) * x1));
 
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
 
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
@@ -60,14 +56,11 @@ static inline int run_IIR(const int *x, int sample_count)
 
        // x[i + 1].
         register int next_input = x[i + 1];
-        y = __QADD(
-            b02_1 * next_input,
-            (b02_1 << 1) * x1
-        );
+        y = ((b02_1 * next_input) + ((b02_1 << 1) * x1));
 
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
 
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
@@ -81,14 +74,11 @@ static inline int run_IIR(const int *x, int sample_count)
     /* Process the final sample when sample_count is odd. */
     if (i < sample_count) {
         register int current_input = x[i];
-        register int y = __QADD(
-            b02_1 * current_input,
-            (b02_1 << 1) * x1
-        );
+        register int y = ((b02_1 * current_input) + ((b02_1 << 1) * x1));
 
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
 
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 

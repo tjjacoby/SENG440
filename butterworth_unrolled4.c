@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <time.h>
 #include <math.h>
-#include <cmsis_compiler.h>
 
 #define N 200000
 #define SAMPLE_RATE 10000.0
@@ -35,13 +34,10 @@ static int run_IIR(const int *x, int sample_count)
     for (i = 0; i + 3 < sample_count; i += 4) {
         /* Sample 0: x[i]. */
         register int input0 = x[i];
-        register int y = __QADD(
-            b02_1 * input0,
-            (b02_1 << 1) * x1
-        );
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        register int y = ((b02_1 * input0) + ((b02_1 << 1) * x1));
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
         x2 = x1;
@@ -51,13 +47,10 @@ static int run_IIR(const int *x, int sample_count)
 
         /* Sample 1: x[i + 1]. */
         register int input1 = x[i + 1];
-        y = __QADD(
-            b02_1 * input1,
-            (b02_1 << 1) * x1
-        );
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        y = ((b02_1 * input1) + ((b02_1 << 1) * x1));
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
         x2 = x1;
@@ -67,13 +60,10 @@ static int run_IIR(const int *x, int sample_count)
 
         /* Sample 2: x[i + 2]. */
         register int input2 = x[i + 2];
-        y = __QADD(
-            b02_1 * input2,
-            (b02_1 << 1) * x1
-        );
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        y = ((b02_1 * input2) + ((b02_1 << 1) * x1));
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
         x2 = x1;
@@ -83,13 +73,10 @@ static int run_IIR(const int *x, int sample_count)
 
         /* Sample 3: x[i + 3]. */
         register int input3 = x[i + 3];
-        y = __QADD(
-            b02_1 * input3,
-            (b02_1 << 1) * x1
-        );
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        y = ((b02_1 * input3) + ((b02_1 << 1) * x1));
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
         x2 = x1;
@@ -101,13 +88,10 @@ static int run_IIR(const int *x, int sample_count)
     /* Process the remaining zero to three samples. */
     for (; i < sample_count; i++) {
         register int current_input = x[i];
-        register int y = __QADD(
-            b02_1 * current_input,
-            (b02_1 << 1) * x1
-        );
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        register int y = ((b02_1 * current_input) + ((b02_1 << 1) * x1));
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
         x2 = x1;

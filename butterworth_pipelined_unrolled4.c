@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <time.h>
 #include <math.h>
-#include <cmsis_compiler.h>
 
 #define N 200000
 #define SAMPLE_RATE 10000.0
@@ -36,28 +35,19 @@ static inline int run_IIR(const int *x, int sample_count)
 
     /* Pipeline prologue: prepare sample zero. */
     register int current_input = x[0];
-    register int current_feedforward = __QADD(
-        b02_1 * current_input,
-        (b02_1 << 1) * x1
-    );
-    current_feedforward = __QADD(current_feedforward, 0);
+    register int current_feedforward = ((b02_1 * current_input) + ((b02_1 << 1) * x1));
+    current_feedforward = ((current_feedforward) + (0));
 
     register int i = 0;
     for (i = 0; i + 4 < sample_count; i += 4) {
         /* Pipeline stage 0: prepare i + 1 and complete i. */
         {
             register int next_input = x[i + 1];
-            register int next_feedforward = __QADD(
-                b02_1 * next_input,
-                (b02_1 << 1) * current_input
-            );
-            next_feedforward = __QADD(
-                next_feedforward,
-                b02_1 * x1
-            );
+            register int next_feedforward = ((b02_1 * next_input) + ((b02_1 << 1) * current_input));
+            next_feedforward = ((next_feedforward) + (b02_1 * x1));
 
-            register int y = __QADD(current_feedforward, a1 * y1);
-            y = __QADD(y, a2 * y2);
+            register int y = ((current_feedforward) + (a1 * y1));
+            y = ((y) + (a2 * y2));
             y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
             x1 = current_input;
@@ -70,17 +60,11 @@ static inline int run_IIR(const int *x, int sample_count)
         /* Pipeline stage 1: prepare i + 2 and complete i + 1. */
         {
             register int next_input = x[i + 2];
-            register int next_feedforward = __QADD(
-                b02_1 * next_input,
-                (b02_1 << 1) * current_input
-            );
-            next_feedforward = __QADD(
-                next_feedforward,
-                b02_1 * x1
-            );
+            register int next_feedforward = ((b02_1 * next_input) + ((b02_1 << 1) * current_input));
+            next_feedforward = ((next_feedforward) + (b02_1 * x1));
 
-            register int y = __QADD(current_feedforward, a1 * y1);
-            y = __QADD(y, a2 * y2);
+            register int y = ((current_feedforward) + (a1 * y1));
+            y = ((y) + (a2 * y2));
             y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
             x1 = current_input;
@@ -93,17 +77,11 @@ static inline int run_IIR(const int *x, int sample_count)
         /* Pipeline stage 2: prepare i + 3 and complete i + 2. */
         {
             register int next_input = x[i + 3];
-            register int next_feedforward = __QADD(
-                b02_1 * next_input,
-                (b02_1 << 1) * current_input
-            );
-            next_feedforward = __QADD(
-                next_feedforward,
-                b02_1 * x1
-            );
+            register int next_feedforward = ((b02_1 * next_input) + ((b02_1 << 1) * current_input));
+            next_feedforward = ((next_feedforward) + (b02_1 * x1));
 
-            register int y = __QADD(current_feedforward, a1 * y1);
-            y = __QADD(y, a2 * y2);
+            register int y = ((current_feedforward) + (a1 * y1));
+            y = ((y) + (a2 * y2));
             y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
             x1 = current_input;
@@ -116,17 +94,11 @@ static inline int run_IIR(const int *x, int sample_count)
         /* Pipeline stage 3: prepare i + 4 and complete i + 3. */
         {
             register int next_input = x[i + 4];
-            register int next_feedforward = __QADD(
-                b02_1 * next_input,
-                (b02_1 << 1) * current_input
-            );
-            next_feedforward = __QADD(
-                next_feedforward,
-                b02_1 * x1
-            );
+            register int next_feedforward = ((b02_1 * next_input) + ((b02_1 << 1) * current_input));
+            next_feedforward = ((next_feedforward) + (b02_1 * x1));
 
-            register int y = __QADD(current_feedforward, a1 * y1);
-            y = __QADD(y, a2 * y2);
+            register int y = ((current_feedforward) + (a1 * y1));
+            y = ((y) + (a2 * y2));
             y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
             x1 = current_input;
@@ -140,17 +112,11 @@ static inline int run_IIR(const int *x, int sample_count)
     /* Pipeline cleanup: prepare and complete any remaining samples. */
     for (; i + 1 < sample_count; i++) {
         register int next_input = x[i + 1];
-        register int next_feedforward = __QADD(
-            b02_1 * next_input,
-            (b02_1 << 1) * current_input
-        );
-        next_feedforward = __QADD(
-            next_feedforward,
-            b02_1 * x1
-        );
+        register int next_feedforward = ((b02_1 * next_input) + ((b02_1 << 1) * current_input));
+        next_feedforward = ((next_feedforward) + (b02_1 * x1));
 
-        register int y = __QADD(current_feedforward, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        register int y = ((current_feedforward) + (a1 * y1));
+        y = ((y) + (a2 * y2));
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
         x1 = current_input;
@@ -161,8 +127,8 @@ static inline int run_IIR(const int *x, int sample_count)
     }
 
     /* Pipeline epilogue: complete the last prepared sample. */
-    register int y = __QADD(current_feedforward, a1 * y1);
-    y = __QADD(y, a2 * y2);
+    register int y = ((current_feedforward) + (a1 * y1));
+    y = ((y) + (a2 * y2));
     y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
     return y;

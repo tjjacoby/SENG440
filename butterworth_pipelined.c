@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <time.h>
 #include <math.h>
-#include <cmsis_compiler.h>
 
 #define N 200000
 #define SAMPLE_RATE 10000.0
@@ -46,11 +45,8 @@ static int run_IIR(const int *x, int sample_count)
      * terms. The missing x[-1] and x[-2] samples are both zero.
      */
     register int current_input = x[0];
-    register int current_feedforward = __QADD(
-        b02_1 * current_input,
-        (b02_1 << 1) * x1
-    );
-    current_feedforward = __QADD(current_feedforward, 0);
+    register int current_feedforward = ((b02_1 * current_input) + ((b02_1 << 1) * x1));
+    current_feedforward = ((current_feedforward) + (0));
 
     register int i;
     for (i = 0; i + 1 < sample_count; i++) {
@@ -64,20 +60,17 @@ static int run_IIR(const int *x, int sample_count)
         register int next_b1_product = (b02_1 << 1) * current_input;
         register int next_b2_product = b02_1 * x1;
 
-        register int next_feedforward = __QADD(
-            next_b0_product,
-            next_b1_product
-        );
-        next_feedforward = __QADD(next_feedforward, next_b2_product);
+        register int next_feedforward = ((next_b0_product) + (next_b1_product));
+        next_feedforward = ((next_feedforward) + (next_b2_product));
 
         /*
          * Pipeline stage 2: finish the current sample using the recursive
-         * output terms. This preserves the original QADD accumulation order.
+         * output terms. This preserves the original accumulation order.
          */
         register int feedback_y1 = a1 * y1;
         register int feedback_y2 = a2 * y2;
-        register int y = __QADD(current_feedforward, feedback_y1);
-        y = __QADD(y, feedback_y2);
+        register int y = ((current_feedforward) + (feedback_y1));
+        y = ((y) + (feedback_y2));
         y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
         /* Advance all pipeline and IIR states by one sample. */
@@ -89,8 +82,8 @@ static int run_IIR(const int *x, int sample_count)
     }
 
     /* Pipeline epilogue: finish the final prepared sample. */
-    register int y = __QADD(current_feedforward, a1 * y1);
-    y = __QADD(y, a2 * y2);
+    register int y = ((current_feedforward) + (a1 * y1));
+    y = ((y) + (a2 * y2));
     y = (y >> 14) | ((y & ((1 << 14) - 1)) != 0);
 
     return y;

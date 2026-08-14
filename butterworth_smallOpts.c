@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <time.h>
 #include <math.h>
-#include <cmsis_compiler.h>
 
 #define N 200000
 #define SAMPLE_RATE 10000.0
@@ -43,10 +42,10 @@ static inline int run_IIR(const int *x, int sample_count)
     register int i = 0;
     for (i = 0; i < sample_count; i++) {
       
-        register int y = __QADD(b02_1 * x[i], (b02_1 << 1) * x1);
-        y = __QADD(y, b02_1 * x2);
-        y = __QADD(y, a1 * y1);
-        y = __QADD(y, a2 * y2);
+        register int y = ((b02_1 * x[i]) + ((b02_1 << 1) * x1));
+        y = ((y) + (b02_1 * x2));
+        y = ((y) + (a1 * y1));
+        y = ((y) + (a2 * y2));
 
     /*
         y >>= 14;
