@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 
 # Upload the updated filter sources and benchmark script in one SSH session.
-# Run this script locally from Git Bash, WSL, or another Bash shell.
+# Run this script locally from macOS Terminal (or Git Bash/WSL on Windows).
+#
+# First-time setup on macOS:
+#   chmod +x upload.sh
+#   ./upload.sh
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VM_HOST="${1:-student@armhf32}"
+VM_HOST="${1:-seng440-vm}"
 VM_DIR="${2:-/home/student/seng440/filter}"
 
 if ! command -v ssh >/dev/null 2>&1; then
