@@ -1,0 +1,49 @@
+config,program,assembly_file,source_file,extraction,asm_first_line,asm_last_line,total_instructions,loop_control_instructions,repeated_loop_body_instructions,loop_body_ldr,loop_body_str,hot_loop_body_instructions,hot_loop_control_instructions,hot_loop_ldr,hot_loop_ldr_family,hot_loop_str,hot_loop_str_family,hot_loop_ldm_family,hot_loop_stm_family,loop_back_branches,loop_back_branch_mnemonics,ldr,ldr_family,str,str_family,ldm_family,stm_family,compare_test,branch,multiply,mac,push,pop
+O0 Thumb,noOpt,benchmark_results_O0/noOpt/noOpt_O0.s,butterworth_noOpt.c,standalone/source-attributed,148,268,86,10,69,25,14,69,7,25,25,14,14,0,0,1,blt .L5,27,27,19,19,0,0,2,2,5,0,0,0
+O0 Thumb,smallOpts,benchmark_results_O0/smallOpts/smallOpts_O0.s,butterworth_smallOpts.c,standalone/source-attributed,138,222,53,6,41,5,0,41,4,5,5,0,0,0,0,1,blt .L5,5,5,0,0,0,0,2,2,5,0,0,1
+O0 Thumb,pipelined,benchmark_results_O0/pipelined/pipelined_O0.s,butterworth_pipelined.c,standalone/source-attributed,138,270,79,7,40,3,0,40,5,3,3,0,0,0,0,1,bgt .L7,6,6,0,0,0,0,4,4,9,0,0,1
+O0 Thumb,unrolled,benchmark_results_O0/unrolled/unrolled_O0.s,butterworth_unrolled.c,standalone/source-attributed,138,326,117,7,72,5,0,72,5,5,5,0,0,0,0,1,bgt .L5,8,8,0,0,0,0,5,3,15,0,0,1
+O0 Thumb,unrolled2,benchmark_results_O0/unrolled2/unrolled2_O0.s,butterworth_pipelined2.c,standalone/source-attributed,138,390,155,13,115,8,0,75,5,5,5,0,0,0,0,2,bgt .L7; bgt .L9,11,11,0,0,0,0,7,6,19,0,0,1
+O0 Thumb,unrolled4,benchmark_results_O0/unrolled4/unrolled4_O0.s,butterworth_unrolled4.c,standalone/source-attributed,138,445,190,12,177,12,0,140,5,9,9,0,0,0,0,2,bgt .L5; blt .L7,12,12,0,0,0,0,7,4,25,0,0,1
+O0 Thumb,unrolled5,benchmark_results_O0/unrolled5/unrolled5_O0.s,butterworth_unrolled5.c,standalone/source-attributed,138,499,224,12,211,14,0,174,5,11,11,0,0,0,0,2,bgt .L5; blt .L7,14,14,0,0,0,0,8,4,30,0,0,1
+O0 Thumb,unrolled6,benchmark_results_O0/unrolled6/unrolled6_O0.s,butterworth_unrolled6.c,standalone/source-attributed,138,553,258,12,245,16,0,208,5,13,13,0,0,0,0,2,bgt .L5; blt .L7,16,16,0,0,0,0,9,4,35,0,0,1
+O0 Thumb,unrolled7,benchmark_results_O0/unrolled7/unrolled7_O0.s,butterworth_unrolled7.c,standalone/source-attributed,138,607,292,12,279,18,0,242,5,15,15,0,0,0,0,2,bgt .L5; blt .L7,18,18,0,0,0,0,10,4,40,0,0,1
+O0 Thumb,unrolled8,benchmark_results_O0/unrolled8/unrolled8_O0.s,butterworth_unrolled8.c,standalone/source-attributed,138,661,326,12,313,20,0,276,5,17,17,0,0,0,0,2,bgt .L5; blt .L7,20,20,0,0,0,0,11,4,45,0,0,1
+O0 Thumb,unrolled10,benchmark_results_O0/unrolled10/unrolled10_O0.s,butterworth_unrolled10.c,standalone/source-attributed,138,769,394,12,381,24,0,344,5,21,21,0,0,0,0,2,bgt .L5; blt .L7,24,24,0,0,0,0,13,4,55,0,0,1
+O0 Thumb,unrolled20,benchmark_results_O0/unrolled20/unrolled20_O0.s,butterworth_unrolled20.c,standalone/source-attributed,138,1309,734,12,721,44,0,684,5,41,41,0,0,0,0,2,bgt .L5; blt .L7,44,44,0,0,0,0,23,4,105,0,0,1
+O2 Thumb,noOpt,benchmark_results_O2/noOpt/noOpt_O2.s,butterworth_noOpt.c,inlined,105,148,26,2,17,1,0,17,2,1,1,0,0,0,0,1,bne .L5,1,1,0,0,0,0,1,1,1,4,0,0
+O2 Thumb,smallOpts,benchmark_results_O2/smallOpts/smallOpts_O2.s,butterworth_smallOpts.c,inlined,105,148,26,2,17,1,0,17,2,1,1,0,0,0,0,1,bne .L5,1,1,0,0,0,0,1,1,1,4,0,0
+O2 Thumb,pipelined,benchmark_results_O2/pipelined/pipelined_O2.s,butterworth_pipelined.c,inlined,109,182,36,2,17,1,0,17,2,1,1,0,0,0,0,1,bne .L8,3,3,0,0,0,0,1,2,2,6,0,0
+O2 Thumb,unrolled,benchmark_results_O2/unrolled/unrolled_O2.s,butterworth_unrolled.c,inlined,107,170,36,3,27,2,0,27,3,2,2,0,0,0,0,1,bne .L5,2,2,0,0,0,0,1,1,2,8,0,0
+O2 Thumb,unrolled2,benchmark_results_O2/unrolled2/unrolled2_O2.s,butterworth_pipelined2.c,inlined,107,221,58,2,26,2,0,26,2,2,2,0,0,0,0,1,bne .L5,5,5,1,1,0,0,1,1,4,13,0,0
+O2 Thumb,unrolled4,benchmark_results_O2/unrolled4/unrolled4_O2.s,butterworth_unrolled4.c,inlined,107,214,58,3,47,4,0,47,3,4,4,0,0,0,0,1,bne .L5,4,4,1,1,0,0,1,1,4,14,0,0
+O2 Thumb,unrolled5,benchmark_results_O2/unrolled5/unrolled5_O2.s,butterworth_unrolled5.c,inlined,108,231,68,4,58,4,0,58,4,4,5,0,0,0,0,1,bne .L5,4,5,2,2,0,0,1,1,5,17,0,0
+O2 Thumb,unrolled6,benchmark_results_O2/unrolled6/unrolled6_O2.s,butterworth_unrolled6.c,inlined,107,303,105,4,69,5,0,69,4,5,6,0,0,0,0,1,bne .L5,8,9,2,2,0,0,1,1,8,26,0,0
+O2 Thumb,unrolled7,benchmark_results_O2/unrolled7/unrolled7_O2.s,butterworth_unrolled7.c,inlined,108,323,123,7,103,5,1,86,4,4,7,1,1,0,0,2,bne .L5; bne .L6,5,9,2,3,0,0,2,2,8,27,0,0
+O2 Thumb,unrolled8,benchmark_results_O2/unrolled8/unrolled8_O2.s,butterworth_unrolled8.c,inlined,108,292,101,4,90,5,0,90,4,5,7,0,0,0,0,1,bne .L5,5,7,2,2,0,0,1,1,8,26,0,0
+O2 Thumb,unrolled10,benchmark_results_O2/unrolled10/unrolled10_O2.s,butterworth_unrolled10.c,inlined,108,333,123,4,112,7,0,112,4,7,9,0,0,0,0,1,bne .L5,7,9,2,2,0,0,1,1,10,32,0,0
+O2 Thumb,unrolled20,benchmark_results_O2/unrolled20/unrolled20_O2.s,butterworth_unrolled20.c,inlined,108,526,228,4,218,9,0,218,4,9,15,0,0,0,0,1,bne .L5,9,15,2,2,0,0,1,1,20,62,0,0
+O2 ARM,noOpt,benchmark_results_O2marm/noOpt/noOpt_O2marm.s,butterworth_noOpt.c,inlined,105,147,25,2,16,1,0,16,2,1,1,0,0,0,0,1,bne .L5,1,1,0,0,0,0,1,1,1,4,0,0
+O2 ARM,smallOpts,benchmark_results_O2marm/smallOpts/smallOpts_O2marm.s,butterworth_smallOpts.c,inlined,105,147,25,2,16,1,0,16,2,1,1,0,0,0,0,1,bne .L5,1,1,0,0,0,0,1,1,1,4,0,0
+O2 ARM,pipelined,benchmark_results_O2marm/pipelined/pipelined_O2marm.s,butterworth_pipelined.c,inlined,105,166,32,2,17,1,0,17,2,1,1,0,0,0,0,1,bne .L8,2,2,0,0,0,0,1,2,2,6,0,0
+O2 ARM,unrolled,benchmark_results_O2marm/unrolled/unrolled_O2marm.s,butterworth_unrolled.c,inlined,106,167,34,3,25,2,0,25,3,2,2,0,0,0,0,1,bne .L5,2,2,0,0,0,0,1,1,2,8,0,0
+O2 ARM,unrolled2,benchmark_results_O2marm/unrolled2/unrolled2_O2marm.s,butterworth_pipelined2.c,inlined,104,211,57,2,24,2,0,24,2,2,2,0,0,0,0,1,bne .L5,5,5,1,1,0,0,1,1,4,13,0,0
+O2 ARM,unrolled4,benchmark_results_O2marm/unrolled4/unrolled4_O2marm.s,butterworth_unrolled4.c,inlined,104,209,56,3,43,4,0,43,3,4,4,0,0,0,0,1,bne .L5,4,4,1,1,0,0,1,1,4,14,0,0
+O2 ARM,unrolled5,benchmark_results_O2marm/unrolled5/unrolled5_O2marm.s,butterworth_unrolled5.c,inlined,104,229,66,4,54,6,0,54,4,6,6,0,0,0,0,1,bne .L5,6,6,2,2,0,0,1,1,5,17,0,0
+O2 ARM,unrolled6,benchmark_results_O2marm/unrolled6/unrolled6_O2marm.s,butterworth_unrolled6.c,inlined,104,297,104,4,63,5,0,63,4,5,6,0,0,0,0,1,bne .L5,7,8,2,2,0,0,1,1,8,26,0,0
+O2 ARM,unrolled7,benchmark_results_O2marm/unrolled7/unrolled7_O2marm.s,butterworth_unrolled7.c,inlined,106,324,121,9,97,9,1,81,4,8,9,1,1,0,0,2,bne .L5; bne .L6,12,13,4,4,0,0,2,2,8,27,0,0
+O2 ARM,unrolled8,benchmark_results_O2marm/unrolled8/unrolled8_O2marm.s,butterworth_unrolled8.c,inlined,104,289,96,4,84,9,0,84,4,9,9,0,0,0,0,1,bne .L5,9,9,2,2,0,0,1,1,8,26,0,0
+O2 ARM,unrolled10,benchmark_results_O2marm/unrolled10/unrolled10_O2marm.s,butterworth_unrolled10.c,inlined,104,323,114,4,102,5,0,102,4,5,5,0,0,2,0,1,bne .L5,5,5,2,2,2,0,1,1,10,32,0,0
+O2 ARM,unrolled20,benchmark_results_O2marm/unrolled20/unrolled20_O2marm.s,butterworth_unrolled20.c,inlined,104,538,216,4,203,18,0,203,4,18,18,0,0,1,0,1,bne .L5,18,18,2,2,1,0,1,2,20,62,0,0
+O3 ARM,noOpt,benchmark_results_O3marm/noOpt/noOpt_O3marm.s,butterworth_noOpt.c,inlined,105,147,25,2,16,1,0,16,2,1,1,0,0,0,0,1,bne .L5,1,1,0,0,0,0,1,1,1,4,0,0
+O3 ARM,smallOpts,benchmark_results_O3marm/smallOpts/smallOpts_O3marm.s,butterworth_smallOpts.c,inlined,105,147,25,2,16,1,0,16,2,1,1,0,0,0,0,1,bne .L5,1,1,0,0,0,0,1,1,1,4,0,0
+O3 ARM,pipelined,benchmark_results_O3marm/pipelined/pipelined_O3marm.s,butterworth_pipelined.c,inlined,105,166,32,2,17,1,0,17,2,1,1,0,0,0,0,1,bne .L8,2,2,0,0,0,0,1,2,2,6,0,0
+O3 ARM,unrolled,benchmark_results_O3marm/unrolled/unrolled_O3marm.s,butterworth_unrolled.c,inlined,106,167,34,3,25,2,0,25,3,2,2,0,0,0,0,1,bne .L5,2,2,0,0,0,0,1,1,2,8,0,0
+O3 ARM,unrolled2,benchmark_results_O3marm/unrolled2/unrolled2_O3marm.s,butterworth_pipelined2.c,inlined,104,211,57,2,24,2,0,24,2,2,2,0,0,0,0,1,bne .L5,5,5,1,1,0,0,1,1,4,13,0,0
+O3 ARM,unrolled4,benchmark_results_O3marm/unrolled4/unrolled4_O3marm.s,butterworth_unrolled4.c,inlined,104,209,56,3,43,4,0,43,3,4,4,0,0,0,0,1,bne .L5,4,4,1,1,0,0,1,1,4,14,0,0
+O3 ARM,unrolled5,benchmark_results_O3marm/unrolled5/unrolled5_O3marm.s,butterworth_unrolled5.c,inlined,104,229,66,4,54,6,0,54,4,6,6,0,0,0,0,1,bne .L5,6,6,2,2,0,0,1,1,5,17,0,0
+O3 ARM,unrolled6,benchmark_results_O3marm/unrolled6/unrolled6_O3marm.s,butterworth_unrolled6.c,inlined,104,297,104,4,63,5,0,63,4,5,6,0,0,0,0,1,bne .L5,7,8,2,2,0,0,1,1,8,26,0,0
+O3 ARM,unrolled7,benchmark_results_O3marm/unrolled7/unrolled7_O3marm.s,butterworth_unrolled7.c,inlined,104,353,130,4,73,6,0,73,4,6,7,0,0,0,0,1,bne .L5,11,12,2,2,0,0,1,1,10,32,0,0
+O3 ARM,unrolled8,benchmark_results_O3marm/unrolled8/unrolled8_O3marm.s,butterworth_unrolled8.c,inlined,104,289,96,4,84,9,0,84,4,9,9,0,0,0,0,1,bne .L5,9,9,2,2,0,0,1,1,8,26,0,0
+O3 ARM,unrolled10,benchmark_results_O3marm/unrolled10/unrolled10_O3marm.s,butterworth_unrolled10.c,inlined,104,323,114,4,102,5,0,102,4,5,5,0,0,2,0,1,bne .L5,5,5,2,2,2,0,1,1,10,32,0,0
+O3 ARM,unrolled20,benchmark_results_O3marm/unrolled20/unrolled20_O3marm.s,butterworth_unrolled20.c,inlined,104,538,216,4,203,18,0,203,4,18,18,0,0,1,0,1,bne .L5,18,18,2,2,1,0,1,2,20,62,0,0

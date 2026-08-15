@@ -1,0 +1,7 @@
+build/
+vm_run/
+*.exe
+*.o
+__pycache__/
+*.py[cod]
+.DS_Store
